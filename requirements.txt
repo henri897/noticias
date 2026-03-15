@@ -1,0 +1,2 @@
+feedparser==6.0.11
+brotli==1.1.0
