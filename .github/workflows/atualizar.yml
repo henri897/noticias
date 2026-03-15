@@ -1,0 +1,36 @@
+name: Atualizar Painel de Notícias
+
+on:
+  schedule:
+    - cron: '0 * * * *'   # Roda a cada hora (no minuto 0)
+  workflow_dispatch:        # Permite rodar manualmente pelo GitHub
+
+permissions:
+  contents: write
+
+jobs:
+  gerar-painel:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Gerar index.html
+        run: python gerar_painel.py
+
+      - name: Publicar no GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          publish_branch: gh-pages
+          exclude_assets: '.github,gerar_painel.py,requirements.txt,README.md'
