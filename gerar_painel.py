@@ -657,7 +657,7 @@ def gerar_html(noticias: list) -> str:
                 height: 100%;
                 z-index: 160;
                 transform: translateX(-100%);
-                padding-top: 20px;
+                padding-top: 60px;
             }}
             .sidebar.aberta {{ transform: translateX(0); }}
 
